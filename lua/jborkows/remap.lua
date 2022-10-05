@@ -20,13 +20,14 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 local nnoremap = require("jborkows.keymap").nnoremap
 local inoremap = require("jborkows.keymap").inoremap
 -- replace with snippets
-inoremap("{", "<ESC>A{}<ESC>ha")
-inoremap("(", "()<ESC>ha")
+-- inoremap("{", "<ESC>A{}<ESC>ha")
+-- inoremap("(", "()<ESC>ha")
 --
 inoremap("\"", "\"\"<ESC>ha")
 nnoremap("<leader>d", "\"_d")
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
 nnoremap("<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>")
+nnoremap("<leader><leader>f", "<cmd>lua require('telescope.builtin').find_files()<cr>")
 nnoremap("<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
 nnoremap("<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>")
 nnoremap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
@@ -35,6 +36,8 @@ nnoremap("<F5>", ":UndotreeToggle<CR>")
 nnoremap("<leader>ca", "<cmd>lua require('harpoon.mark').add_file()<cr>")
 nnoremap("<leader>cw", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>")
 
+-- reload fill
+vim.keymap.set("n", "<leader>sl", "<cmd>source %<CR>")
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -118,6 +121,17 @@ cmp.setup({
 	},
 	mapping = {
 
+		["<Left>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+		["<Right>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+		["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+		["<C-e>"] = cmp.mapping {
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
+		},
+		["<CR>"] = cmp.mapping.confirm { select = true },
 		-- ... Your other mappings ...
 
 		["<Tab>"] = cmp.mapping(function(fallback)
@@ -126,6 +140,7 @@ cmp.setup({
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
 			elseif has_words_before() then
+				print("completed")
 				cmp.complete()
 			else
 				fallback()
