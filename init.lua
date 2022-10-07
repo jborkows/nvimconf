@@ -10,5 +10,6 @@ require("jborkows.postactions")
 require("jborkows.telescopeconfig")
 require("jborkows.snippeds")
 --require("jborkows.formatter")
+require("jborkows.highlitingtest")
 
 print("finished...")

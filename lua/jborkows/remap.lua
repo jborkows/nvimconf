@@ -19,6 +19,7 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 ]]
 local nnoremap = require("jborkows.keymap").nnoremap
 local inoremap = require("jborkows.keymap").inoremap
+local tnoremap = require("jborkows.keymap").tnoremap
 -- replace with snippets
 -- inoremap("{", "<ESC>A{}<ESC>ha")
 -- inoremap("(", "()<ESC>ha")
@@ -35,6 +36,8 @@ nnoremap("<F5>", ":UndotreeToggle<CR>")
 
 nnoremap("<leader>ca", "<cmd>lua require('harpoon.mark').add_file()<cr>")
 nnoremap("<leader>cw", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>")
+nnoremap("<leader>cl", "<cmd>belowright split <bar> resize 10 <bar> terminal<cr>")
+tnoremap("<esc>", [[<C-\><C-n>]])
 
 -- reload fill
 vim.keymap.set("n", "<leader>sl", "<cmd>source %<CR>")
