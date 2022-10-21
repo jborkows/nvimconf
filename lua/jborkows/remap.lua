@@ -26,6 +26,7 @@ local tnoremap = require("jborkows.keymap").tnoremap
 --
 inoremap("\"", "\"\"<ESC>ha")
 nnoremap("<leader>d", "\"_d")
+nnoremap("<leader>/", ":Commentary<CR>")
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
 nnoremap("<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>")
 nnoremap("<leader><leader>f", "<cmd>lua require('telescope.builtin').find_files()<cr>")
@@ -35,6 +36,7 @@ nnoremap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 nnoremap("<F5>", ":UndotreeToggle<CR>")
 
 nnoremap("<leader>ca", "<cmd>lua require('harpoon.mark').add_file()<cr>")
+nnoremap("<leader><leader>ca", "<cmd>lua require('harpoon.mark').add_file()<cr>")
 nnoremap("<leader>cw", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>")
 nnoremap("<leader>cl", "<cmd>belowright split <bar> resize 10 <bar> terminal<cr>")
 tnoremap("<esc>", [[<C-\><C-n>]])
@@ -176,7 +178,7 @@ cmp.setup({
 })
 
 -- go.nvim
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require 'go'.setup({
 	goimport = 'gopls', -- if set to 'gopls' will use golsp format
 	gofmt = 'gofumpt', -- if set to gopls will use golsp format
