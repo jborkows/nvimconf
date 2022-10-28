@@ -112,6 +112,11 @@ local attach_to_buffer = function(bufnr, command)
 				end
 			end, {})
 			log("Executing tests... ")
+			local notificationTitle = "Running tests"
+			local notify = require("notify").notify
+			notify("Executing...", vim.log.levels.INFO, {
+				title = notificationTitle,
+			})
 			vim.fn.jobstart(command, {
 				stdout_buffered = true,
 				on_stderr = function(_, data)
@@ -167,6 +172,19 @@ local attach_to_buffer = function(bufnr, command)
 						end
 					end
 					vim.diagnostic.set(ns, bufnr, failed, {})
+
+					if next(failed) then
+						notify("There are test failures", vim.log.levels.WARN, {
+							title = notificationTitle,
+							icon = "🚨"
+						})
+					else
+						notify("All tests pass", vim.log.levels.INFO, {
+							title = notificationTitle,
+							icon = "😎"
+						})
+					end
+
 				end
 			})
 		end
