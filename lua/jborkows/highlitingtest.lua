@@ -84,6 +84,10 @@ end
 local ns = vim.api.nvim_create_namespace "live-tests"
 local group = vim.api.nvim_create_augroup("jb-go-test", { clear = true })
 
+function myerrorhandler(err)
+	log("ERROR:" .. err)
+end
+
 local attach_to_buffer = function(bufnr, command)
 
 	vim.api.nvim_create_autocmd("BufWritePost", {
@@ -107,6 +111,7 @@ local attach_to_buffer = function(bufnr, command)
 					end
 				end
 			end, {})
+			log("Executing tests... ")
 			vim.fn.jobstart(command, {
 				stdout_buffered = true,
 				on_stderr = function(_, data)
@@ -116,6 +121,7 @@ local attach_to_buffer = function(bufnr, command)
 						return
 					end -- if data are present append lines starting from end of file (-1) to end of file (-1)
 					for _, line in ipairs(data) do
+						log(line);
 						local decoded = vim.json.decode(line)
 						if decoded.Action == "run" then
 							add_golang_test(state, decoded)
@@ -127,14 +133,19 @@ local attach_to_buffer = function(bufnr, command)
 						elseif decoded.Action == "pass" or decoded.Action == "fail" then
 							mark_success(state, decoded)
 							local test = state.tests[make_key(decoded)]
-							if test.success then
+							if test.success and test.line then
 								local text = { '✔️' }
-								vim.api.nvim_buf_set_extmark(bufnr, ns, test.line, 0, { virt_text = { text } })
+								log("Setting success for " .. vim.inspect(test))
+								xpcall(function() vim.api.nvim_buf_set_extmark(bufnr, ns, test.line, 0, { virt_text = { text } }) end,
+									myerrorhandler)
 							end
 						elseif decoded.Action == "pause" then
 							-- nop
+						elseif decoded.Action == "cont" then
+							-- nop
 						else
-							error("Failed to handle" .. vim.inspect(data))
+							log("Failed to handle " .. decoded.Action)
+							error("Failed to handle" .. decoded.Action)
 						end
 					end
 				end,
