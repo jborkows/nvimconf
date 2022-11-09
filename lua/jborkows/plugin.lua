@@ -21,6 +21,7 @@ return require('packer').startup(function(use)
 	use 'nvim-treesitter/playground'
 	use 'ThePrimeagen/harpoon'
 
+	use 'tpope/vim-surround'
 	use 'tpope/vim-commentary'
 
 	-- Installation nvim lsp
