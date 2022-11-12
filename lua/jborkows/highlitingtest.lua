@@ -126,36 +126,42 @@ local attach_to_buffer = function(bufnr, command)
 						return
 					end -- if data are present append lines starting from end of file (-1) to end of file (-1)
 					for _, line in ipairs(data) do
-						log(line);
-						local decoded = vim.json.decode(line)
-						if decoded.Action == "run" then
-							add_golang_test(state, decoded)
-						elseif decoded.Action == "output" then
-							if not decoded.Test then
-								return
-							end
-							add_golang_output(state, decoded)
-						elseif decoded.Action == "pass" or decoded.Action == "fail" then
-							mark_success(state, decoded)
-							local test = state.tests[make_key(decoded)]
-							if test.success and test.line then
-								local text = { '✔️' }
-								log("Setting success for " .. vim.inspect(test))
-								xpcall(function() vim.api.nvim_buf_set_extmark(bufnr, ns, test.line, 0, { virt_text = { text } }) end,
-									myerrorhandler)
-							end
-						elseif decoded.Action == "pause" then
-							-- nop
-						elseif decoded.Action == "cont" then
+						log("Receiving:'" .. line .. "'");
+						if not line or line == '' then
 							-- nop
 						else
-							log("Failed to handle " .. decoded.Action)
-							error("Failed to handle" .. decoded.Action)
+							log("Decoding...")
+							local decoded = vim.json.decode(line)
+							if not decoded.Test then
+								log("Cannot use " .. vim.inspect(decoded))
+							elseif decoded.Action == "run" then
+								add_golang_test(state, decoded)
+							elseif decoded.Action == "output" then
+								add_golang_output(state, decoded)
+							elseif decoded.Action == "pass" or decoded.Action == "fail" then
+								mark_success(state, decoded)
+								local test = state.tests[make_key(decoded)]
+								if test.success and test.line then
+									local text = { '✔️' }
+									log("Setting success for " .. vim.inspect(test))
+									xpcall(function() vim.api.nvim_buf_set_extmark(bufnr, ns, test.line, 0, { virt_text = { text } }) end,
+										myerrorhandler)
+								end
+							elseif decoded.Action == "pause" then
+								-- nop
+							elseif decoded.Action == "cont" then
+								-- nop
+							else
+								log("Failed to handle " .. decoded.Action)
+								error("Failed to handle" .. decoded.Action)
+							end
 						end
+
 					end
 				end,
 				on_exit = function()
 					local failed = {}
+					log("Executing tests finished")
 					for _, test in pairs(state.tests) do
 						if test.line then
 							if not test.success then
@@ -195,7 +201,7 @@ end
 vim.api.nvim_create_user_command(
 	"MyGoTestOnSave",
 	function()
-		attach_to_buffer(vim.api.nvim_get_current_buf(), { "go", "test", "./...", "-v", "-json" })
+		attach_to_buffer(vim.api.nvim_get_current_buf(), { "go", "test", "-v", "./...", "-json" })
 	end,
 	{}
 )
