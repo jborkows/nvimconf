@@ -83,6 +83,12 @@ local lsp_flags = {
 	-- This is the default in Nvim 0.7+
 	debounce_text_changes = 150,
 }
+require("mason").setup()
+require("mason-lspconfig").setup({
+	ensure_installed = { "dockerls", "jdtls" },
+	automatic_installation = true,
+})
+
 require('lspconfig')['yamlls'].setup {
 	settings = {
 		yaml = {

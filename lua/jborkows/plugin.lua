@@ -16,6 +16,9 @@ return require('packer').startup(function(use)
 	}
 	use 'mbbill/undotree'
 	use 'neovim/nvim-lspconfig'
+	use 'williamboman/mason.nvim'
+	use 'williamboman/mason-lspconfig.nvim'
+	use 'mfussenegger/nvim-jdtls'
 	use 'nvim-treesitter/nvim-treesitter'
 	use 'nvim-treesitter/nvim-treesitter-context'
 	use 'nvim-treesitter/playground'
