@@ -31,6 +31,8 @@ local vnoremap = require("jborkows.keymap").vnoremap
 -- inoremap("\"", "\"\"<ESC>ha")
 nnoremap("<Leader>p", "\"0P")
 nnoremap("<leader>d", "\"_d")
+nnoremap("<C-d>", "<C-d>zz")
+nnoremap("<C-u>", "<C-u>zz")
 nnoremap("<leader>/", ":Commentary<CR>")
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
 nnoremap("<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>")
@@ -94,6 +96,8 @@ require("mason-lspconfig").setup({
 
 require('lspconfig').tsserver.setup {}
 require('lspconfig').dockerls.setup {}
+require('lspconfig').html.setup {}
+require('lspconfig').cssls.setup {}
 require('lspconfig')['yamlls'].setup {
 	settings = {
 		yaml = {
