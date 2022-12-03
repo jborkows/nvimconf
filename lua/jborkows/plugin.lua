@@ -26,6 +26,8 @@ return require('packer').startup(function(use)
 
 	use 'tpope/vim-surround'
 	use 'tpope/vim-commentary'
+	use 'mhinz/vim-signify'
+	use 'tpope/vim-fugitive'
 
 	-- Installation nvim lsp
 	use 'hrsh7th/cmp-nvim-lsp'

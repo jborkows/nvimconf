@@ -16,6 +16,9 @@ nnoremap  <silent> [b :bprevious<CR>
 nnoremap  <silent> ]b :bnext<CR>
 "Gets the folder of command - relative
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+ highlight SignifySignAdd                  ctermbg=green                guibg=#00ff00
+ highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
+ highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
 ]]
 local nnoremap = require("jborkows.keymap").nnoremap
 local inoremap = require("jborkows.keymap").inoremap
@@ -26,7 +29,7 @@ local vnoremap = require("jborkows.keymap").vnoremap
 -- inoremap("(", "()<ESC>ha")
 --
 -- inoremap("\"", "\"\"<ESC>ha")
-nnoremap("<Leader>p", "0P")
+nnoremap("<Leader>p", "\"0P")
 nnoremap("<leader>d", "\"_d")
 nnoremap("<leader>/", ":Commentary<CR>")
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
@@ -89,6 +92,8 @@ require("mason-lspconfig").setup({
 	automatic_installation = true,
 })
 
+require('lspconfig').tsserver.setup {}
+require('lspconfig').dockerls.setup {}
 require('lspconfig')['yamlls'].setup {
 	settings = {
 		yaml = {
