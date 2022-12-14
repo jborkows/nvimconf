@@ -27,6 +27,7 @@ set completeopt=menu,menuone,noselect
 set winbar=%=%m\ %f
 set splitbelow
 set splitright
+let g:netrw_liststyle = 3
 ]]
-vim.opt.scrolloff=8
-vim.opt.colorcolumn="80"
+vim.opt.scrolloff = 8
+vim.opt.colorcolumn = "80"
