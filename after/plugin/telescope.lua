@@ -19,7 +19,6 @@ require("telescope").setup {
 			action = function(emoji)
 				-- argument emoji is a table.
 				-- {name="", value="", category="", description=""}
-				print("I am called")
 				local pos = vim.api.nvim_win_get_cursor(0)
 				local posX = pos[2]
 				local line = vim.api.nvim_get_current_line()
