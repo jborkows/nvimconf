@@ -9,6 +9,7 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>ps', function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end, { desc = "Process search" })
+
 vim.keymap.set('n', '<leader>sc', function()
 	builtin.spell_suggest(themes.get_cursor({}))
 end, { desc = "Spelling checker" })
