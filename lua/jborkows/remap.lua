@@ -1,7 +1,8 @@
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>sl", "<cmd>source %<CR>")
 
-vim.keymap.set("n", "<leader>cl", "<cmd>belowright split <bar> resize 10 <bar> terminal<cr>")
+vim.keymap.set("n", "<leader>cl", "<cmd>belowright split <bar> resize 10 <bar> terminal<cr>A")
+vim.keymap.set("n", "<leader>clv", "<cmd>vsp <bar><bar>  terminal<cr>A")
 vim.keymap.set("t", "<esc>", [[<C-\><C-n>]])
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>?', vim.diagnostic.open_float, opts)
