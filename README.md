@@ -1,5 +1,5 @@
 # Telescope
-- fuzy find all symbols
+- fuzzy find all symbols
 ```
 install ripgrep and use in normal mode :Telescope live_grep
 ```
