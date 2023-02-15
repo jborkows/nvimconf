@@ -5,22 +5,22 @@ lsp.preset('recommended')
 lsp.ensure_installed({
 	'tsserver',
 	'eslint',
-	'sumneko_lua',
+	'lua_ls',
 	'rust_analyzer',
 	"bashls",
 	"gopls"
 })
 
 -- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
-	settings = {
-		Lua = {
-			diagnostics = {
-				globals = { 'vim' }
-			}
-		}
-	}
-})
+-- lsp.configure('sumneko_lua', {
+-- 	settings = {
+-- 		Lua = {
+-- 			diagnostics = {
+-- 				globals = { 'vim' }
+-- 			}
+-- 		}
+-- 	}
+-- })
 
 
 local cmp = require('cmp')
@@ -82,7 +82,7 @@ lsp.on_attach(function(client, bufnr)
 	if client.supports_method("textDocument/formatting") then
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = lspFormatting,
-			pattern = { "*.rs", "*.lua", "*.go" },
+			pattern = { "*.rs", "*.lua", "*.go", "*.ts" },
 			callback = function()
 				vim.lsp.buf.format()
 			end

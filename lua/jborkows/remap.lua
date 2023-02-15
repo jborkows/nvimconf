@@ -1,4 +1,5 @@
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex) --for basic netwr
+vim.keymap.set("n", "<leader>pv", require 'nvim-tree'.open)
 vim.keymap.set("n", "<leader>sl", "<cmd>source %<CR>")
 
 vim.keymap.set("n", "<leader>cl", "<cmd>belowright split <bar> resize 10 <bar> terminal<cr>A")
@@ -23,9 +24,9 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>d", [["_dP]])
 
 -- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "clipboard copy" })
 vim.keymap.set("n", "<leader>Y", [["+Y]])
-vim.keymap.set("n", "<leader>p", [["+P]])
+vim.keymap.set("n", "<leader>p", [["+P]], { desc = "clipboard paste" })
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 

@@ -29,4 +29,4 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.termguicolors = true
 vim.opt.colorcolumn = "80"
-vim.g.netrw_liststyle = 3
+-- vim.g.netrw_liststyle = 3

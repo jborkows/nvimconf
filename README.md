@@ -34,3 +34,17 @@ Usage:
 </fontconfig>
 ```
 And now 🔥
+
+# Emojii and nerd font support
+Install font from https://www.nerdfonts.com/font-downloads 
+- download file
+- unzip into .fonts e.g.
+```
+unzip FiraCode.zip -d ~/.fonts 
+``` 
+- refresh cache 
+```
+fc-cache -fv
+```
+- change console font to picked one
+
