@@ -42,7 +42,7 @@ Install font from https://www.nerdfonts.com/font-downloads
 ```
 unzip FiraCode.zip -d ~/.fonts 
 ``` 
-3. refresh cache 
+3. Refresh cache 
 ```
 fc-cache -fv
 ```
