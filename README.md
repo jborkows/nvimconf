@@ -37,12 +37,12 @@ And now 🔥
 
 # Emojii and nerd font support
 Install font from https://www.nerdfonts.com/font-downloads 
-- download file
-- unzip into .fonts e.g.
+1. download file
+2. unzip into .fonts e.g.
 ```
 unzip FiraCode.zip -d ~/.fonts 
 ``` 
-- refresh cache 
+3. refresh cache 
 ```
 fc-cache -fv
 ```
