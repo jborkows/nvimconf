@@ -23,6 +23,7 @@ require("nvim-tree").setup({
 	},
 	filters = {
 		dotfiles = true,
+		exclude = { ".github", ".gitignore", ".idea" }
 	},
 })
 vim.schedule(function()

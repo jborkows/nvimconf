@@ -48,3 +48,9 @@ fc-cache -fv
 ```
 - change console font to picked one
 
+
+# Clipboard
+install e.g. xclip
+use checkhealth provider to check
+
+
