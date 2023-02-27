@@ -82,7 +82,7 @@ lsp.on_attach(function(client, bufnr)
 	if client.supports_method("textDocument/formatting") then
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = lspFormatting,
-			pattern = { "*.rs", "*.lua", "*.go", "*.ts" },
+			pattern = { "*.rs", "*.lua", "*.go", "*.ts", "*.js", "*.css", "*.dockerfile" },
 			callback = function()
 				vim.lsp.buf.format()
 			end
