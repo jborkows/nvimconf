@@ -9,8 +9,8 @@ vim.opt.termguicolors = true
 
 -- OR setup with some options
 require("nvim-tree").setup({
-	sort_by = "case_sensitive",
-	view = {
+	sort_by             = "case_sensitive",
+	view                = {
 		width = 30,
 		mappings = {
 			list = {
@@ -18,14 +18,24 @@ require("nvim-tree").setup({
 			},
 		},
 	},
-	renderer = {
+	renderer            = {
 		group_empty = true,
 	},
-	filters = {
+	filters             = {
 		dotfiles = true,
 		exclude = { ".github", ".gitignore", ".idea" }
 	},
+	update_focused_file = {
+		enable = true,
+		update_cwd = true
+	}
 })
 vim.schedule(function()
 	require 'nvim-tree'.open_on_directory()
+end)
+
+-- open file on edit
+local api = require("nvim-tree.api")
+api.events.subscribe(api.events.Event.FileCreated, function(file)
+	vim.cmd("edit " .. file.fname)
 end)
