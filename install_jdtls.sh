@@ -11,7 +11,7 @@ echo java 17
 curl https://download.java.net/java/GA/jdk17.0.1/2a2082e5a09d4267845be086888add4f/12/GPL/openjdk-17.0.1_linux-x64_bin.tar.gz -o /tmp/jdk17.tar.gz
 tar xvf /tmp/jdk17.tar.gz -C ${java_bin_dir}
 echo java 19
-curl  https://download.java.net/java/GA/jdk19.0.1/afdd2e245b014143b62ccb916125e3ce/10/GPL/openjdk-19.0.1_linux-x64_bin.tar.gz -o /tmp/jdk19.tar.gz
+curl  https://download.java.net/java/GA/jdk19/877d6127e982470ba2a7faa31cc93d04/36/GPL/openjdk-19_linux-x64_bin.tar.gz -o /tmp/jdk19.tar.gz
 tar xvf /tmp/jdk19.tar.gz -C ${java_bin_dir}
 
 echo jdltls 1.9

@@ -125,17 +125,17 @@ local config = {
 			configuration = {
 				runtimes = {
 
-					{
-						name = "JavaSE-19",
-						path = java_folder .. "jdk-19.0.1",
-					},
+					-- {
+					-- 	name = "JavaSE-19",
+					-- 	path = java_folder .. "jdk-19",
+					-- }, -- invalid "not compatible..."
 					{
 						name = "JavaSE-17",
 						path = java_folder .. "jdk-17.0.1",
 					},
 					{
 						name = "JavaSE-11",
-						path = java_folder .. "jdk-11.0.1",
+						path = java_folder .. "jdk-11.0.2",
 					},
 				}
 			}
