@@ -1,5 +1,5 @@
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex) --for basic netwr
-vim.keymap.set("n", "<leader>pv", require 'nvim-tree'.open)
+vim.keymap.set("n", "<leader>pv", require 'nvim-tree'.toggle)
 vim.keymap.set("n", "<leader>sl", "<cmd>source %<CR>")
 
 vim.keymap.set("n", "<leader>cl", "<cmd>belowright split <bar> resize 10 <bar> terminal<cr>A")
