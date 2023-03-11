@@ -26,10 +26,10 @@ lsp.ensure_installed({
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
-	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-y>'] = cmp.mapping.confirm({ select = true }),
-	["<C-Space>"] = cmp.mapping.complete(),
+		['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+		['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+		['<C-y>'] = cmp.mapping.confirm({ select = true }),
+		["<C-Space>"] = cmp.mapping.complete(),
 })
 
 -- disable completion with tab
@@ -82,13 +82,28 @@ lsp.on_attach(function(client, bufnr)
 	if client.supports_method("textDocument/formatting") then
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = lspFormatting,
-			pattern = { "*.rs", "*.lua", "*.go", "*.ts", "*.js", "*.css", "*.dockerfile" },
+			pattern = { "*.rs", "*.lua", "*.ts", "*.js", "*.css", "*.dockerfile" },
 			callback = function()
 				vim.lsp.buf.format()
 			end
 		}
 		);
 	end
+
+	vim.api.nvim_create_autocmd("BufWritePre", {
+		group = lspFormatting,
+		pattern = { "*.go" },
+		callback = function()
+			vim.lsp.buf.format()
+			vim.lsp.buf.code_action(
+				{
+					context = { only = { "source.organizeImports" } },
+					apply = true
+				}
+			)
+		end
+	}
+	);
 end)
 
 lsp.setup()
