@@ -1,4 +1,8 @@
 local lsp = require('lsp-zero')
+-- require("neodev").setup({
+-- 	-- add any options here, or leave empty to use the default settings
+-- })
+-- require("dapui").setup({})
 lsp.preset('recommended')
 
 
@@ -26,10 +30,10 @@ lsp.ensure_installed({
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
-		['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-		['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-		['<C-y>'] = cmp.mapping.confirm({ select = true }),
-		["<C-Space>"] = cmp.mapping.complete(),
+	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+	['<C-y>'] = cmp.mapping.confirm({ select = true }),
+	["<C-Space>"] = cmp.mapping.complete(),
 })
 
 -- disable completion with tab
@@ -69,8 +73,8 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>td", function()
 		vim.cmd.Telescope("diagnostics")
 	end, opts)
-	vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-	vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+	vim.keymap.set("n", "[", vim.diagnostic.goto_next, opts)
+	vim.keymap.set("n", "]", vim.diagnostic.goto_prev, opts)
 	vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 	vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, opts)
 	vim.keymap.set("n", "<leader>fu", vim.lsp.buf.references, opts)
@@ -105,8 +109,26 @@ lsp.on_attach(function(client, bufnr)
 	}
 	);
 end)
+-- lsp.skip_server_setup({ 'rust_analyzer' })
+ -- local codelldb_root = require('mason-registry').get_package("codelldb"):get_install_path() .. "/extension/"
+ --  local codelldb_path = codelldb_root .. "adapter/codelldb"
+ --  local liblldb_path = codelldb_root .. "lldb/lib/liblldb.so"
+ -- print(codelldb_path)
 
 lsp.setup()
+
+-- local rust_tools = require('rust-tools')
+
+-- rust_tools.setup({
+-- 	server = {
+-- 		on_attach = function(client, bufnr)
+-- 			vim.keymap.set('n', '<leader>ca', rust_tools.hover_actions.hover_actions, { buffer = bufnr })
+-- 		end
+-- 	},
+-- 	dap = {
+-- 		adapter = require('rust-tools.dap').get_codelldb_adapter('~/.local/share/nvim/mason/bin/codelldb')
+-- 	}
+-- })
 
 vim.diagnostic.config({
 	virtual_text = true,

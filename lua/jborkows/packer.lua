@@ -49,11 +49,28 @@ return require('packer').startup(function(use)
 		requires = {
 			'nvim-tree/nvim-web-devicons', -- optional, for file icons
 		},
-		tag = 'nightly' -- optional, updated every week. (see issue #1193)
+		tag = 'nightly'           -- optional, updated every week. (see issue #1193)
 	}
 	use 'simrat39/symbols-outline.nvim'
 
 	use 'mfussenegger/nvim-dap'
 	use 'mfussenegger/nvim-jdtls'
+	-- use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+	-- use "folke/neodev.nvim"
+	-- -- use 'simrat39/rust-tools.nvim'
+	-- require("neodev").setup({
+	-- 	library = { plugins = { "nvim-dap-ui" }, types = true },
+	-- })
 	use 'ThePrimeagen/refactoring.nvim'
+	-- use({
+	-- 	"jackMort/ChatGPT.nvim",
+	-- 	-- config = function()
+	-- 	-- 	require("chatgpt").setup()
+	-- 	-- end,
+	-- 	requires = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"nvim-telescope/telescope.nvim"
+	-- 	}
+	-- })
 end)
