@@ -56,8 +56,7 @@ lsp.set_preferences({
 })
 
 local lspFormatting = vim.api.nvim_create_augroup("jb-lsp-group", { clear = true })
-
-lsp.on_attach(function(client, bufnr)
+local on_attach = function(client, bufnr)
 	local opts = { buffer = bufnr, remap = false }
 
 	if client.name == "eslint" then
@@ -108,7 +107,8 @@ lsp.on_attach(function(client, bufnr)
 		end
 	}
 	);
-end)
+end
+lsp.on_attach(on_attach)
 lsp.skip_server_setup({ 'rust_analyzer' })
 
 local home = os.getenv('HOME')
@@ -121,11 +121,12 @@ local rust_tools = require('rust-tools')
 local opts = {
 	--
 	server = {
-		on_attach = function(_, bufnr)
+		on_attach = function(client, bufnr)
 			-- Hover actions
 			vim.keymap.set("n", "<C-space>", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
 			-- Code action groups
 			vim.keymap.set("n", "<Leader>ax", rust_tools.code_action_group.code_action_group, { buffer = bufnr })
+			on_attach(client, bufnr)
 		end,
 	},
 	-- ... other configs
