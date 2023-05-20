@@ -109,27 +109,36 @@ lsp.on_attach(function(client, bufnr)
 	}
 	);
 end)
--- lsp.skip_server_setup({ 'rust_analyzer' })
- -- local codelldb_root = require('mason-registry').get_package("codelldb"):get_install_path() .. "/extension/"
- --  local codelldb_path = codelldb_root .. "adapter/codelldb"
- --  local liblldb_path = codelldb_root .. "lldb/lib/liblldb.so"
- -- print(codelldb_path)
+lsp.skip_server_setup({ 'rust_analyzer' })
 
+local home = os.getenv('HOME')
+local codelldb_root = home .. '/.local/share/nvim/mason/packages/codelldb/extension/'
+local codelldb_path = codelldb_root .. "adapter/codelldb"
+local liblldb_path = codelldb_root .. "lldb/lib/liblldb.so"
 lsp.setup()
 
--- local rust_tools = require('rust-tools')
+local rust_tools = require('rust-tools')
+local opts = {
+	--
+	server = {
+		on_attach = function(_, bufnr)
+			-- Hover actions
+			vim.keymap.set("n", "<C-space>", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
+			-- Code action groups
+			vim.keymap.set("n", "<Leader>ax", rust_tools.code_action_group.code_action_group, { buffer = bufnr })
+		end,
+	},
+	-- ... other configs
+	dap = {
+		adapter = require('rust-tools.dap').get_codelldb_adapter(
+			codelldb_path, liblldb_path)
+	}
+}
 
--- rust_tools.setup({
--- 	server = {
--- 		on_attach = function(client, bufnr)
--- 			vim.keymap.set('n', '<leader>ca', rust_tools.hover_actions.hover_actions, { buffer = bufnr })
--- 		end
--- 	},
--- 	dap = {
--- 		adapter = require('rust-tools.dap').get_codelldb_adapter('~/.local/share/nvim/mason/bin/codelldb')
--- 	}
--- })
+-- Normal setup
+require('rust-tools').setup(opts)
 
+require("dapui").setup()
 vim.diagnostic.config({
 	virtual_text = true,
 })

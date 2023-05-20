@@ -61,6 +61,11 @@ return require('packer').startup(function(use)
 	-- require("neodev").setup({
 	-- 	library = { plugins = { "nvim-dap-ui" }, types = true },
 	-- })
+	use 'simrat39/rust-tools.nvim'
+
+	-- Debugging
+	use 'nvim-lua/plenary.nvim'
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 	use 'ThePrimeagen/refactoring.nvim'
 	-- use({
 	-- 	"jackMort/ChatGPT.nvim",
