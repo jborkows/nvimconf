@@ -78,4 +78,5 @@ return require('packer').startup(function(use)
 	-- 		"nvim-telescope/telescope.nvim"
 	-- 	}
 	-- })
+	use 'christoomey/vim-tmux-navigator'
 end)
