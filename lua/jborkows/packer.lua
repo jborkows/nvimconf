@@ -66,18 +66,19 @@ return require('packer').startup(function(use)
 	-- Debugging
 	use 'nvim-lua/plenary.nvim'
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+	use 'theHamsta/nvim-dap-virtual-text'
 	use 'ThePrimeagen/refactoring.nvim'
-	-- use({
-	-- 	"jackMort/ChatGPT.nvim",
-	-- 	-- config = function()
-	-- 	-- 	require("chatgpt").setup()
-	-- 	-- end,
-	-- 	requires = {
-	-- 		"MunifTanjim/nui.nvim",
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-telescope/telescope.nvim"
-	-- 	}
-	-- })
+	use({
+		"jackMort/ChatGPT.nvim",
+		-- config = function()
+		-- 	require("chatgpt").setup()
+		-- end,
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim"
+		}
+	})
 	use 'christoomey/vim-tmux-navigator'
 	use 'tpope/vim-obsession'
 end)
