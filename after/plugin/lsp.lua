@@ -56,6 +56,7 @@ lsp.set_preferences({
 })
 
 local lspFormatting = vim.api.nvim_create_augroup("jb-lsp-group", { clear = true })
+local dap = require 'dap'
 local on_attach = function(client, bufnr)
 	local opts = { buffer = bufnr, remap = false }
 
@@ -84,6 +85,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, opts)
 	vim.keymap.set("n", "<leader>mv", vim.lsp.buf.rename, opts)
 	vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+	vim.keymap.set('n', "<leader>b", dap.toggle_breakpoint, opts)
 
 	vim.api.nvim_clear_autocmds({ group = lspFormatting, buffer = bufnr })
 	if client.supports_method("textDocument/formatting") then
@@ -113,35 +115,9 @@ local on_attach = function(client, bufnr)
 	);
 end
 lsp.on_attach(on_attach)
+lsp.setup()
 lsp.skip_server_setup({ 'rust_analyzer' })
 
-local home = os.getenv('HOME')
-local codelldb_root = home .. '/.local/share/nvim/mason/packages/codelldb/extension/'
-local codelldb_path = codelldb_root .. "adapter/codelldb"
-local liblldb_path = codelldb_root .. "lldb/lib/liblldb.so"
-lsp.setup()
-
-local rust_tools = require('rust-tools')
-local opts = {
-	--
-	server = {
-		on_attach = function(client, bufnr)
-			-- Hover actions
-			vim.keymap.set("n", "<C-space>", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
-			-- Code action groups
-			vim.keymap.set("n", "<Leader>ax", rust_tools.code_action_group.code_action_group, { buffer = bufnr })
-			on_attach(client, bufnr)
-		end,
-	},
-	-- ... other configs
-	dap = {
-		adapter = require('rust-tools.dap').get_codelldb_adapter(
-			codelldb_path, liblldb_path)
-	}
-}
-
--- Normal setup
-require('rust-tools').setup(opts)
 
 require("dapui").setup()
 vim.diagnostic.config({
