@@ -123,3 +123,11 @@ require("dapui").setup()
 vim.diagnostic.config({
 	virtual_text = true,
 })
+
+
+function AnsibleLspOn()
+	vim.cmd.LspStop()
+	vim.cmd.LspStart("ansiblels")
+end
+
+vim.cmd("command! AnsibleLspOn lua AnsibleLspOn()")
