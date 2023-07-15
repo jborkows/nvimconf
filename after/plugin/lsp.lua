@@ -12,9 +12,16 @@ lsp.ensure_installed({
 	'lua_ls',
 	'rust_analyzer',
 	"bashls",
-	"gopls"
+	"gopls",
 })
 
+-- lsp.configs.javascript.formatters = {
+-- 	{
+-- 		exe = 'prettier',
+-- 		args = { '--stdin-filepath', '%filepath' },
+-- 		stdin = true,
+-- 	},
+-- }
 -- Fix Undefined global 'vim'
 -- lsp.configure('sumneko_lua', {
 -- 	settings = {
@@ -91,14 +98,20 @@ local on_attach = function(client, bufnr)
 	if client.supports_method("textDocument/formatting") then
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = lspFormatting,
-			pattern = { "*.rs", "*.lua", "*.ts", "*.js", "*.css", "*.dockerfile" },
+			pattern = { "*.rs", "*.lua", "*.css", "*.dockerfile" },
 			callback = function()
 				vim.lsp.buf.format()
 			end
 		}
 		);
 	end
-
+	vim.api.nvim_create_autocmd("BufWritePost", {
+		group = lspFormatting,
+		pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.cjs" },
+		callback = function()
+			vim.api.nvim_command('silent !prettier --write %')
+		end
+	})
 	vim.api.nvim_create_autocmd("BufWritePre", {
 		group = lspFormatting,
 		pattern = { "*.go" },
@@ -114,6 +127,68 @@ local on_attach = function(client, bufnr)
 	}
 	);
 end
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+-- 	group = lspFormatting,
+-- 	pattern = { "*.xml" },
+-- 	callback = function()
+-- 		vim.api.nvim_command('silent %!xmllint "%" --format')
+-- 		vim.api.nvim_buf_reload(vim.api.nvim_get_current_buf(), {})
+-- 	end
+-- })
+
+local execute_formatting_command = function(extension, commandCreator)
+	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+	local content = table.concat(lines, "\n")
+
+	-- Create a temporary file
+	local tmpfile = vim.fn.tempname() .. extension
+	local escaped_tmpfile = vim.fn.shellescape(tmpfile)
+
+	-- Write the buffer content to the temporary file
+	local file = io.open(tmpfile, "w")
+	file:write(content)
+	file:close()
+
+	local command = commandCreator(escaped_tmpfile)
+	os.execute(command)
+
+	file = io.open(tmpfile, "r")
+	local modified_content = file:read("*a")
+	file:close()
+
+	vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(modified_content, "\n"))
+
+	-- Remove the temporary file
+	os.remove(tmpfile)
+end
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = lspFormatting,
+	pattern = { "*.xml" },
+	callback = function()
+		execute_formatting_command(".xml", function(filePath)
+			return 'xmllint --format --output ' .. filePath .. ' ' .. filePath
+		end)
+	end
+})
+
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+-- 	group = lspFormatting,
+-- 	pattern = { "*.json" },
+-- 	callback = function()
+-- 		vim.api.nvim_command('silent !prettier --write %')
+-- 	end
+-- })
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = lspFormatting,
+	pattern = { "*.json" },
+	callback = function()
+		execute_formatting_command(".json", function(filePath)
+			return 'prettier --log-level silent --write ' .. filePath
+		end)
+	end
+})
 lsp.on_attach(on_attach)
 lsp.setup()
 lsp.skip_server_setup({ 'rust_analyzer' })
