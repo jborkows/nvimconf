@@ -74,4 +74,8 @@ nmap <leader>sl <Action>(IdeaVim.ReloadVimRc.reload)
 autocmd BufWritePost *.js,*.ts,*.groovy,*.java,*.kt <Action>(ReformatCode) | <Action>(OptimizeImports)
 command! GitFetch  action Git.Fetch
 command! GitPull  action Git.Pull
+command! GitClean !bash cleanup.sh
+"does not work but the direct call does
+command! CopyFilePath !echo -n "%" | xclip -selection clipboard
+nmap <leader>jp :s#^.*\(basePlan/.*\)\.js#//= require \1#<CR>
 
