@@ -62,8 +62,11 @@ nmap <leader>rt <Action>(RunClass)
 nmap <leader>fg <Action>(FindInPath)
 nmap <leader>ff <Action>(GotoFile)
 nmap <leader>fc <Action>(GotoClass)
+nmap <leader>fi <Action>(GotoImplementation)
+nmap <leader>gc <Action>(Generate)
 nnoremap <leader>] :action GotoNextError<CR>
 nnoremap <leader>[ :action GotoPreviousError<CR>
+nmap <leader>rw "_dep
 
 nmap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 
