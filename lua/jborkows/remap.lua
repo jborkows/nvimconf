@@ -37,3 +37,7 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- replace word
 vim.keymap.set("n", "<leader>rw", '"_dwp', { desc = "try to replace word" })
+
+-- next previous buffers
+vim.keymap.set("n", "<Tab>", "<cmd>bn<CR>", { silent = true })
+vim.keymap.set("n", "<S-Tab>", "<cmd>bp<CR>", { silent = true })
