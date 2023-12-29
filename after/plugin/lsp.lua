@@ -126,6 +126,15 @@ local on_attach = function(client, bufnr)
 		end
 	}
 	);
+
+	vim.api.nvim_create_autocmd("BufWritePre", {
+		group = lspFormatting,
+		pattern = { "*.rs" },
+		callback = function()
+			vim.lsp.buf.format()
+		end
+	}
+	);
 end
 -- vim.api.nvim_create_autocmd("BufWritePost", {
 -- 	group = lspFormatting,
@@ -206,3 +215,7 @@ function AnsibleLspOn()
 end
 
 vim.cmd("command! AnsibleLspOn lua AnsibleLspOn()")
+
+return {
+	on_attach = on_attach,
+}
