@@ -82,4 +82,12 @@ return require('packer').startup(function(use)
 	use 'christoomey/vim-tmux-navigator'
 	use 'tpope/vim-obsession'
 	use 'github/copilot.vim'
+	use {
+		"folke/which-key.nvim",
+		config = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end
+	}
+	use 'laytan/cloak.nvim'
 end)
