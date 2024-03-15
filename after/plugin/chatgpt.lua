@@ -7,10 +7,8 @@ function EnableChat()
 
 			api_key_cmd = "op read op://private/OpenAI/credential --no-newline",
 			openai_params = {
-				-- model = "gpt-3.5-turbo",
-				model = "gpt-4-1106-preview",
-				max_tokens = 4000,
-				-- model = "gpt-4",
+				model = "gpt-4-0125-preview",
+				max_tokens = 4096,
 			}
 		}
 	)
