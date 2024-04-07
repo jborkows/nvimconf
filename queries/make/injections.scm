@@ -4,3 +4,6 @@
 
   );
 
+(
+(shell_text) @bash
+ );
