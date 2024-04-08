@@ -88,7 +88,4 @@ vim.keymap.set('n', '<leader>rw', '"_dwp', { desc = 'try to replace word' })
 vim.keymap.set('n', '<Tab>', '<cmd>bn<CR>', { silent = true })
 vim.keymap.set('n', '<S-Tab>', '<cmd>bp<CR>', { silent = true })
 
-vim.keymap.set('n', '<leader>c', '<Plug>(comment_toggle_linewise)', { desc = 'set comment mapping' })
-
-vim.keymap.set('v', '<leader>c', '<Plug>(comment_toggle_linewise_visual)', { desc = 'set comment mapping' })
 -- vim: ts=2 sts=2 sw=2 et
