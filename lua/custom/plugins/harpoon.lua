@@ -37,10 +37,10 @@ return {
         harpoon.ui:toggle_quick_menu(harpoon:list())
       end)
 
-      vim.keymap.set('n', '1', function()
+      vim.keymap.set('n', '[', function()
         harpoon:list():prev()
       end)
-      vim.keymap.set('n', '2', function()
+      vim.keymap.set('n', ']', function()
         harpoon:list():next()
       end)
 

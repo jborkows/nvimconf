@@ -51,6 +51,8 @@ M.attach = function(event)
   -- WARN: This is not Goto Definition, this is Goto Declaration.
   --  For example, in C this would take you to the header.
   map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  map('<leader>cf', vim.lsp.buf.format, 'Format')
+  map('<leader>fu', vim.lsp.buf.references, 'Find references')
 
   -- The following two autocommands are used to highlight references of the
   -- word under your cursor when your cursor rests there for a little while.
