@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'theHamsta/nvim-dap-virtual-text',
   },
   config = function()
     local dap = require 'dap'
@@ -45,6 +46,12 @@ return {
       },
     }
 
+    require('nvim-dap-virtual-text').setup {
+      display_callback = function(variable)
+        return '->' .. variable.value
+      end,
+    }
+
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
@@ -55,6 +62,9 @@ return {
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
 
+    vim.keymap.set('n', '<leader>?', function()
+      dapui.eval(nil, { enter = true })
+    end)
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
     dapui.setup {
