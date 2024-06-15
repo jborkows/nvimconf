@@ -34,8 +34,8 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-vim.keymap.set('n', '<M-,>', '<C-w>5<', { desc = 'Expand split' })
-vim.keymap.set('n', '<M-.>', '<C-w>5>', { desc = 'Expand split' })
+vim.keymap.set('n', '<M-,>', '<C-w>5<', { desc = 'Expand left split' })
+vim.keymap.set('n', '<M-.>', '<C-w>5>', { desc = 'Expand right split' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
-vim.keymap.set('n', '<leader>sl', '<cmd>source %<CR>')
+vim.keymap.set('n', '<leader>sl', '<cmd>so %<CR>')
 
 vim.keymap.set('n', '<leader>cl', '<cmd>belowright split <bar> resize 10 <bar> terminal<cr>A')
 vim.keymap.set('n', '<leader>clv', '<cmd>vsp <bar><bar>  terminal<cr>A')
@@ -71,6 +71,7 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 
 -- delete into "void" registry
 vim.keymap.set('x', '<leader>d', [["_dP]])
+vim.keymap.set('n', '<leader>z', '<cmd>only<CR>', { desc = 'close else' })
 
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'clipboard copy' })
@@ -79,16 +80,16 @@ vim.keymap.set('n', '<leader>p', [["+P]], { desc = 'clipboard paste' })
 
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
 
--- start replacing current word
-vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
--- make file executable
-vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true })
+vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { desc = 'start replacing current word' })
+vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true, desc = 'make file executable' })
+vim.keymap.set('n', '<leader>r', '<cmd>e! %<CR>', { silent = true, desc = 'reload current file from disk' })
 
 -- replace word
 vim.keymap.set('n', '<leader>rw', '"_dwp', { desc = 'try to replace word' })
 
--- next previous buffers
-vim.keymap.set('n', '<Tab>', '<cmd>bn<CR>', { silent = true })
-vim.keymap.set('n', '<S-Tab>', '<cmd>bp<CR>', { silent = true })
+vim.keymap.set('n', '<F1>', '<C-^>', { desc = 'go back and forth between buffers' })
+vim.keymap.set('n', '<Tab>', '<cmd>bn<CR>', { silent = true, desc = 'Next buffer' })
+vim.keymap.set('n', '<S-Tab>', '<cmd>bp<CR>', { silent = true, desc = 'Previous buffer' })
 
 -- vim: ts=2 sts=2 sw=2 et
