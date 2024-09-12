@@ -92,4 +92,17 @@ vim.keymap.set('n', '<F1>', '<C-^>', { desc = 'go back and forth between buffers
 vim.keymap.set('n', '<Tab>', '<cmd>bn<CR>', { silent = true, desc = 'Next buffer' })
 vim.keymap.set('n', '<S-Tab>', '<cmd>bp<CR>', { silent = true, desc = 'Previous buffer' })
 
+function ToggleCopilot()
+  if vim.g.copilot_enabled then
+    vim.cmd 'Copilot disable' -- Disable Copilot
+    vim.g.copilot_enabled = false
+    print 'Copilot Disabled'
+  else
+    vim.cmd 'Copilot enable' -- Enable Copilot
+    vim.g.copilot_enabled = true
+    print 'Copilot Enabled'
+  end
+end
+
+vim.keymap.set('n', '<leader>cp', ToggleCopilot, { desc = 'Toggle Copilot' })
 -- vim: ts=2 sts=2 sw=2 et
